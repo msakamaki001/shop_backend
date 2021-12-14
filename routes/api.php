@@ -13,7 +13,19 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+Route::get('/item_list',[App\Http\Controllers\ManagerController::class, 'item_list']);
+Route::get('/category_list',[App\Http\Controllers\ManagerController::class, 'category_list']);
+Route::get('/category_list_paginate',[App\Http\Controllers\ManagerController::class, 'category_list_paginate']);
+Route::post('/create_item',[App\Http\Controllers\ManagerController::class, 'create_item']);
+Route::post('/create_category',[App\Http\Controllers\ManagerController::class, 'create_category']);
+Route::post('/change_item_name',[App\Http\Controllers\ManagerController::class, 'change_item_name']);
+Route::post('/change_item_price',[App\Http\Controllers\ManagerController::class, 'change_item_price']);
+Route::post('/change_item_num',[App\Http\Controllers\ManagerController::class, 'change_item_num']);
+Route::post('/change_item_category',[App\Http\Controllers\ManagerController::class, 'change_item_category']);
+Route::post('/change_item_image',[App\Http\Controllers\ManagerController::class, 'change_item_image']);
+Route::post('/remove_item',[App\Http\Controllers\ManagerController::class, 'remove_item']);
+Route::post('/change_category_name',[App\Http\Controllers\ManagerController::class, 'change_category_name']);
+Route::post('/remove_category',[App\Http\Controllers\ManagerController::class, 'remove_category']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

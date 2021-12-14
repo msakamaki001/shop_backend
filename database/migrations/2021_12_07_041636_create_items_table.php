@@ -19,6 +19,7 @@ class CreateItemsTable extends Migration
             $table->integer('price');
             $table->integer('num');
             $table->bigInteger('category_id');
+            $table->string('image_path','200');
             $table->timestamps();
         });
     }
