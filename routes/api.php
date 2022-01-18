@@ -26,6 +26,11 @@ Route::post('/change_item_image',[App\Http\Controllers\ManagerController::class,
 Route::post('/remove_item',[App\Http\Controllers\ManagerController::class, 'remove_item']);
 Route::post('/change_category_name',[App\Http\Controllers\ManagerController::class, 'change_category_name']);
 Route::post('/remove_category',[App\Http\Controllers\ManagerController::class, 'remove_category']);
+Route::post('/login',[App\Http\Controllers\ManagerController::class, 'login']);
+Route::post('/fetch_categories',[App\Http\Controllers\ManagerController::class, 'fetch_categories']);
+Route::post('/fetch_items',[App\Http\Controllers\ManagerController::class, 'fetch_items']);
+Route::post('/fetch_cart_items',[App\Http\Controllers\ManagerController::class, 'fetch_cart_items']);
+Route::post('/buy_cart_items',[App\Http\Controllers\ManagerController::class, 'buy_cart_items']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

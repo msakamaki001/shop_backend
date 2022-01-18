@@ -44,7 +44,7 @@
                                         </div>
                                     </div>
                                     <div v-else>
-                                        <a href="#" @click="click_item_name(item.id)">
+                                        <a href="#" @click.prevent.stop="click_item_name(item.id)">
                                             {{item.item_name}}
                                         </a>
                                     </div>
@@ -58,7 +58,7 @@
                                         </div>
                                     </div>
                                     <div v-else>
-                                        <a href="#" @click="click_item_image(item.id)">
+                                        <a href="#" @click.prevent.stop="click_item_image(item.id)">
                                             <img :src="item.image_path" width="100" height="100">
                                         </a>
                                     </div>
@@ -70,7 +70,7 @@
                                         <button @click="click_cancel()">キャンセル</button>
                                     </div>
                                     <div v-else>
-                                        <a href="#" @click="click_item_price(item.id)">
+                                        <a href="#" @click.prevent.stop="click_item_price(item.id)">
                                             {{item.price}}円
                                         </a>
                                     </div>
@@ -82,7 +82,7 @@
                                         <button @click="click_cancel()">キャンセル</button>
                                     </div>
                                     <div v-else>
-                                        <a href="#" @click="click_item_num(item.id)">
+                                        <a href="#" @click.prevent.stop="click_item_num(item.id)">
                                             {{item.num}}個
                                         </a>
                                     </div>
@@ -96,7 +96,7 @@
                                         <button @click="click_cancel()">キャンセル</button>
                                     </div>
                                     <div v-else>
-                                        <a href="#" @click="click_item_category(item.id)">
+                                        <a href="#" @click.prevent.stop="click_item_category(item.id)">
                                             {{item.category_name}}
                                         </a>
                                     </div>
@@ -146,7 +146,8 @@
                 last_page: 1,
                 total: 1,
                 from: 0,
-                to: 0
+                to: 0,
+                interval_id: null,
             }
         },
         methods: {
@@ -336,10 +337,13 @@
                 }
             }
         },
-        created() {
+        mounted() {
             this.load(1);
             this.load_category();
-        }
+            this.interval_id = setInterval(function() {
+                this.load(this.current_page);
+            }.bind(this),5000);
+        },
     }
 </script>
 
