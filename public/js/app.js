@@ -6062,7 +6062,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       last_page: 1,
       total: 1,
       from: 0,
-      to: 0
+      to: 0,
+      interval_id: null
     };
   },
   methods: {
@@ -6438,9 +6439,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     }
   },
-  created: function created() {
+  mounted: function mounted() {
     this.load(1);
     this.load_category();
+    this.interval_id = setInterval(function () {
+      this.load(this.current_page);
+    }.bind(this), 5000);
+  },
+  beforeDestroy: function beforeDestroy() {
+    clearInterval(this.interval_id);
   }
 });
 
@@ -31740,6 +31747,8 @@ var render = function () {
                                     attrs: { href: "#" },
                                     on: {
                                       click: function ($event) {
+                                        $event.preventDefault()
+                                        $event.stopPropagation()
                                         return _vm.click_item_name(item.id)
                                       },
                                     },
@@ -31821,6 +31830,8 @@ var render = function () {
                                     attrs: { href: "#" },
                                     on: {
                                       click: function ($event) {
+                                        $event.preventDefault()
+                                        $event.stopPropagation()
                                         return _vm.click_item_image(item.id)
                                       },
                                     },
@@ -31912,6 +31923,8 @@ var render = function () {
                                     attrs: { href: "#" },
                                     on: {
                                       click: function ($event) {
+                                        $event.preventDefault()
+                                        $event.stopPropagation()
                                         return _vm.click_item_price(item.id)
                                       },
                                     },
@@ -32001,6 +32014,8 @@ var render = function () {
                                     attrs: { href: "#" },
                                     on: {
                                       click: function ($event) {
+                                        $event.preventDefault()
+                                        $event.stopPropagation()
                                         return _vm.click_item_num(item.id)
                                       },
                                     },
@@ -32116,6 +32131,8 @@ var render = function () {
                                     attrs: { href: "#" },
                                     on: {
                                       click: function ($event) {
+                                        $event.preventDefault()
+                                        $event.stopPropagation()
                                         return _vm.click_item_category(item.id)
                                       },
                                     },
