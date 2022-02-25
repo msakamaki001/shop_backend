@@ -19,7 +19,7 @@ class ManagerController extends Controller
 
     // api
     public function item_list() {
-        $items = Items::join('category','items.category_id','=','category.id')->select('items.id as id','items.name as item_name','price','num','category_id','category.name as category_name','image_path')->Paginate(10);
+        $items = Items::join('category','items.category_id','=','category.id')->select('items.id as id','items.name as item_name','price','num','category_id','category.name as category_name','image_path')->orderBy('category_id')->orderBy('id')->Paginate(10);
         return $items;
     }
 
