@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::get('/all_item_list',[App\Http\Controllers\ManagerController::class, 'all_item_list']);
 Route::get('/item_list',[App\Http\Controllers\ManagerController::class, 'item_list']);
 Route::get('/category_list',[App\Http\Controllers\ManagerController::class, 'category_list']);
 Route::get('/category_list_paginate',[App\Http\Controllers\ManagerController::class, 'category_list_paginate']);

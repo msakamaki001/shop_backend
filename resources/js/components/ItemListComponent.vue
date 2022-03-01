@@ -16,6 +16,9 @@
                     <div style="display: flex">
                         <router-link to="/categorylist">カテゴリ一覧</router-link>
                         <router-link to="/createitem">商品登録</router-link>
+                        <a href="#" @click.prevent.stop="csv_download()">
+                            CSVダウンロード
+                        </a>
                     </div>
                     </div>
                     <table class="table">
@@ -296,6 +299,21 @@
                         this.load(this.current_page);
                     });
                 }
+            },
+            async csv_download() {
+                axios.get('/api/all_item_list').then((res) => {
+                    var csv = '\ufeff' + 'ID,商品名,値段,数量,カテゴリ名\n';
+                    res.data.forEach(element => {
+                        var line = element['id']+','+element['item_name']+','+element['price']+','+element['num']+','+element['category_name']+"\n";
+                        console.log(line);
+                        csv += line;
+                    })
+                    let blob = new Blob([csv], { type: 'text/csv' });
+                    let link = document.createElement('a');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = '在庫.csv';
+                    link.click();
+                });
             },
             checkFile(file) {
                 let result = true
