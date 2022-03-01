@@ -5332,6 +5332,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -5915,6 +5917,10 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
 //
 //
 //
@@ -30872,9 +30878,16 @@ var render = function () {
                     "div",
                     { staticStyle: { display: "flex" } },
                     [
-                      _c("router-link", { attrs: { to: "/" } }, [
-                        _vm._v("商品一覧"),
-                      ]),
+                      _c(
+                        "div",
+                        { staticStyle: { "margin-right": "10px" } },
+                        [
+                          _c("router-link", { attrs: { to: "/" } }, [
+                            _vm._v("商品一覧"),
+                          ]),
+                        ],
+                        1
+                      ),
                       _vm._v(" "),
                       _c("router-link", { attrs: { to: "/createcategory" } }, [
                         _vm._v("カテゴリ登録"),
@@ -31675,39 +31688,48 @@ var render = function () {
                       )
                     : _vm._e(),
                   _vm._v(" "),
-                  _c(
-                    "div",
-                    { staticStyle: { display: "flex" } },
-                    [
-                      _c("router-link", { attrs: { to: "/categorylist" } }, [
-                        _vm._v("カテゴリ一覧"),
-                      ]),
-                      _vm._v(" "),
-                      _c("router-link", { attrs: { to: "/createitem" } }, [
-                        _vm._v("商品登録"),
-                      ]),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          attrs: { href: "#" },
-                          on: {
-                            click: function ($event) {
-                              $event.preventDefault()
-                              $event.stopPropagation()
-                              return _vm.csv_download()
-                            },
+                  _c("div", { staticStyle: { display: "flex" } }, [
+                    _c(
+                      "div",
+                      { staticStyle: { "margin-right": "10px" } },
+                      [
+                        _c("router-link", { attrs: { to: "/categorylist" } }, [
+                          _vm._v("カテゴリ一覧"),
+                        ]),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticStyle: { "margin-right": "10px" } },
+                      [
+                        _c("router-link", { attrs: { to: "/createitem" } }, [
+                          _vm._v("商品登録"),
+                        ]),
+                      ],
+                      1
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "a",
+                      {
+                        attrs: { href: "#" },
+                        on: {
+                          click: function ($event) {
+                            $event.preventDefault()
+                            $event.stopPropagation()
+                            return _vm.csv_download()
                           },
                         },
-                        [
-                          _vm._v(
-                            "\n                        CSVダウンロード\n                    "
-                          ),
-                        ]
-                      ),
-                    ],
-                    1
-                  ),
+                      },
+                      [
+                        _vm._v(
+                          "\n                        CSVダウンロード\n                    "
+                        ),
+                      ]
+                    ),
+                  ]),
                 ]
               ),
               _vm._v(" "),

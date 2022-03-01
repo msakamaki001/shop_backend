@@ -14,7 +14,9 @@
                         </font>
                     </p>
                     <div style="display: flex">
-                        <router-link to="/">商品一覧</router-link>
+                        <div style="margin-right:10px">
+                            <router-link to="/">商品一覧</router-link>
+                        </div>
                         <router-link to="/createcategory">カテゴリ登録</router-link>
                     </div>
                     </div>

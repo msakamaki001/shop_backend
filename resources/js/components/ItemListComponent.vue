@@ -14,8 +14,12 @@
                         </font>
                     </p>
                     <div style="display: flex">
-                        <router-link to="/categorylist">カテゴリ一覧</router-link>
-                        <router-link to="/createitem">商品登録</router-link>
+                        <div style="margin-right:10px;">
+                            <router-link to="/categorylist">カテゴリ一覧</router-link>
+                        </div>
+                        <div style="margin-right:10px;">
+                            <router-link to="/createitem">商品登録</router-link>
+                        </div>
                         <a href="#" @click.prevent.stop="csv_download()">
                             CSVダウンロード
                         </a>
