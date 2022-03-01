@@ -8,6 +8,7 @@ use App\Models\Items;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
+use Mail;
 
 class ManagerController extends Controller
 {
@@ -15,6 +16,12 @@ class ManagerController extends Controller
     {
         $items = Items::join('category','items.category_id','=','category.id')->select('items.id as id','items.name as item_name','price','num','category.name as category_name')->Paginate(10);
         return view('top', compact('items'));
+    }
+
+    // api
+    public function all_item_list() {
+        $items = Items::join('category','items.category_id','=','category.id')->select('items.id as id','items.name as item_name','price','num','category_id','category.name as category_name','image_path')->orderBy('category_id')->orderBy('id')->get();
+        return $items;
     }
 
     // api

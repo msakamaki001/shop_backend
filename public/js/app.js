@@ -6041,6 +6041,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -6376,6 +6379,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee8);
       }))();
     },
+    csv_download: function csv_download() {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee9() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee9$(_context9) {
+          while (1) {
+            switch (_context9.prev = _context9.next) {
+              case 0:
+                axios.get('/api/all_item_list').then(function (res) {
+                  var csv = "\uFEFF" + 'ID,商品名,値段,数量,カテゴリ名\n';
+                  res.data.forEach(function (element) {
+                    var line = element['id'] + ',' + element['item_name'] + ',' + element['price'] + ',' + element['num'] + ',' + element['category_name'] + "\n";
+                    console.log(line);
+                    csv += line;
+                  });
+                  var blob = new Blob([csv], {
+                    type: 'text/csv'
+                  });
+                  var link = document.createElement('a');
+                  link.href = window.URL.createObjectURL(blob);
+                  link.download = '在庫.csv';
+                  link.click();
+                });
+
+              case 1:
+              case "end":
+                return _context9.stop();
+            }
+          }
+        }, _callee9);
+      }))();
+    },
     checkFile: function checkFile(file) {
       var result = true;
       var SIZE_LIMIT = 5000000; // 5MB
@@ -6400,10 +6433,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     remove_item: function remove_item(id) {
       var _this9 = this;
 
-      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee9() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee9$(_context9) {
+      return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee10() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee10$(_context10) {
           while (1) {
-            switch (_context9.prev = _context9.next) {
+            switch (_context10.prev = _context10.next) {
               case 0:
                 if (confirm("削除しますか？")) {
                   axios.post('/api/remove_item', {
@@ -6415,10 +6448,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 1:
               case "end":
-                return _context9.stop();
+                return _context10.stop();
             }
           }
-        }, _callee9);
+        }, _callee10);
       }))();
     }
   },
@@ -6445,9 +6478,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     this.interval_id = setInterval(function () {
       this.load(this.current_page);
     }.bind(this), 5000);
-  },
-  beforeDestroy: function beforeDestroy() {
-    clearInterval(this.interval_id);
   }
 });
 
@@ -31656,6 +31686,25 @@ var render = function () {
                       _c("router-link", { attrs: { to: "/createitem" } }, [
                         _vm._v("商品登録"),
                       ]),
+                      _vm._v(" "),
+                      _c(
+                        "a",
+                        {
+                          attrs: { href: "#" },
+                          on: {
+                            click: function ($event) {
+                              $event.preventDefault()
+                              $event.stopPropagation()
+                              return _vm.csv_download()
+                            },
+                          },
+                        },
+                        [
+                          _vm._v(
+                            "\n                        CSVダウンロード\n                    "
+                          ),
+                        ]
+                      ),
                     ],
                     1
                   ),
