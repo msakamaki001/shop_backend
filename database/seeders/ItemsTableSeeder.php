@@ -15,7 +15,7 @@ class ItemsTableSeeder extends Seeder
     public function run()
     {
         // iOS
-        // const BASE_URL = 'http://localhost';
+        // $BASE_URL = 'http://localhost';
         // Android
         $BASE_URL = 'http://10.0.2.2';
 

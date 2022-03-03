@@ -58,7 +58,7 @@
                                 </td>
                                 <td :class="{expand_image: is_click_item_image}" scope="row">
                                     <div style="display:flex;" v-if="clicked_id == item.id && is_click_item_image">
-                                        <img :src="item.image_path" width="100" height="100">
+                                        <img :src="item.image_path.replace('10.0.2.2','localhost')" width="100" height="100">
                                         <div style="display:flex;flex-direction: column;">
                                             <input ref="input_image" type="file" @change="change_item_image(item.id, $event)" accept="image/jpeg, image/png"/>
                                             <button style="width:100px;" @click="click_cancel()">キャンセル</button>
@@ -66,7 +66,7 @@
                                     </div>
                                     <div v-else>
                                         <a href="#" @click.prevent.stop="click_item_image(item.id)">
-                                            <img :src="item.image_path" width="100" height="100">
+                                            <img :src="item.image_path.replace('10.0.2.2','localhost')" width="100" height="100">
                                         </a>
                                     </div>
                                 </td>

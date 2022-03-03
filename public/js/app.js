@@ -31847,7 +31847,10 @@ var render = function () {
                             ? _c("div", { staticStyle: { display: "flex" } }, [
                                 _c("img", {
                                   attrs: {
-                                    src: item.image_path,
+                                    src: item.image_path.replace(
+                                      "10.0.2.2",
+                                      "localhost"
+                                    ),
                                     width: "100",
                                     height: "100",
                                   },
@@ -31910,7 +31913,10 @@ var render = function () {
                                   [
                                     _c("img", {
                                       attrs: {
-                                        src: item.image_path,
+                                        src: item.image_path.replace(
+                                          "10.0.2.2",
+                                          "localhost"
+                                        ),
                                         width: "100",
                                         height: "100",
                                       },
