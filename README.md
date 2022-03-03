@@ -1,2 +1,2 @@
-iOSを端末として動かす場合はItemsTableSeederの$BASE_URLをocalhostに適用する<br>
+iOSを端末として動かす場合はItemsTableSeederの$BASE_URLをlocalhostに適用する<br>
 Androidを端末として動かす場合はItemsTableSeederの$BASE_URLを10.0.2.2に適用する
