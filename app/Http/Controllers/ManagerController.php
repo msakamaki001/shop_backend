@@ -8,10 +8,10 @@ use App\Models\Items;
 use App\Models\Customer;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Log;
-use Mail;
 
 class ManagerController extends Controller
 {
+    const BASE_URL = "http://localhost";
     public function index()
     {
         $items = Items::join('category','items.category_id','=','category.id')->select('items.id as id','items.name as item_name','price','num','category.name as category_name')->Paginate(10);
@@ -77,7 +77,7 @@ class ManagerController extends Controller
                 Log::info('存在しない');
             }
         }
-        $image_path = "http://localhost/storage/".$path;
+        $image_path = ManagerController::BASE_URL."/storage/".$path;
         $items::where('id',$request->id)->update(['image_path' => $image_path]);
         return $image_path;
     }
@@ -92,7 +92,7 @@ class ManagerController extends Controller
         Log::info($request->file('file')->getClientOriginalName());
         $file = $request->file('file');
         $path = Storage::disk("public")->putFile('images', $file);
-        $image_path = "http://localhost/storage/".$path;
+        $image_path = ManagerController::BASE_URL."/storage/".$path;
         return $items::insert(['name' => $request->item_name, 'price' => $request->item_price, 'num' => $request->item_num, 'category_id' => $request->item_category, 'image_path' => $image_path]);
     }
 
