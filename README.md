@@ -1,1 +1,5 @@
 localhost以外で動かす場合はManagerControllerのBASE_URLを変更する
+
+初回時、ログイン画面でRegisterボタンを押下しユーザを登録する
+
+登録したユーザでログインする
