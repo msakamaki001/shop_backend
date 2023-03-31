@@ -23,6 +23,10 @@
                         <a href="#" @click.prevent.stop="csv_download()">
                             CSVダウンロード
                         </a>
+                        <div style="margin-left: 10px;">
+                            <input placeholder="商品名、カテゴリ名" v-model="search_word">
+                            <button @click="$event => load(1)">検索</button>
+                        </div>
                     </div>
                     </div>
                     <table class="table">
@@ -141,6 +145,7 @@
                 is_click_item_num: false,
                 is_click_item_category: false,
                 is_click_item_image: false,
+                search_word: '',
                 item_name: '',
                 item_price: 0,
                 item_num: 0,
@@ -236,7 +241,11 @@
                 return true;
             },
             async load(page) {
-                axios.get('/api/item_list?page=' + page).then((res) => {
+                var url = '/api/item_list?page=' + page;
+                if (this.search_word != '') {
+                    url = url + '&word=' + this.search_word;
+                }
+                await axios.get(url).then((res) => {
                     this.items = res.data.data;
                     this.current_page = res.data.current_page
                     this.last_page = res.data.last_page
@@ -246,18 +255,18 @@
                 });
             },
             async load_category() {
-                axios.get('/api/category_list').then((res) => {
+                await axios.get('/api/category_list').then((res) => {
                     this.category_list = res.data;
                 });
             },
             async change(page) {
-                if (page >= 1 && page <= this.last_page) this.load(page)
+                if (page >= 1 && page <= this.last_page) await this.load(page)
             },
             async change_item_name(id) {
                 if (!this.validate_item_name()) {
                     return;
                 }
-                axios.post('/api/change_item_name',{id: id, item_name: this.item_name}).then((res) => {
+                await axios.post('/api/change_item_name',{id: id, item_name: this.item_name}).then((res) => {
                     this.is_click_item_name = false;
                     this.clicked_id = 0;
                     this.load(this.current_page);
@@ -267,7 +276,7 @@
                 if (!this.validate_item_price()) {
                     return;
                 }
-                axios.post('/api/change_item_price',{id: id, item_price: this.item_price}).then((res) => {
+                await axios.post('/api/change_item_price',{id: id, item_price: this.item_price}).then((res) => {
                     this.is_click_item_price = false;
                     this.clicked_id = 0;
                     this.load(this.current_page);
@@ -277,14 +286,14 @@
                 if (!this.validate_item_num()) {
                     return;
                 }
-                axios.post('/api/change_item_num',{id: id, item_num: this.item_num}).then((res) => {
+                await axios.post('/api/change_item_num',{id: id, item_num: this.item_num}).then((res) => {
                     this.is_click_item_num = false;
                     this.clicked_id = 0;
                     this.load(this.current_page);
                 });
             },
             async change_item_category(id) {
-                axios.post('/api/change_item_category',{id: id, item_category: this.item_category}).then((res) => {
+                await axios.post('/api/change_item_category',{id: id, item_category: this.item_category}).then((res) => {
                     this.is_click_item_category = false;
                     this.clicked_id = 0;
                     this.load(this.current_page);
@@ -297,7 +306,7 @@
                     const formData = new FormData()
                     formData.append('id', id);
                     formData.append('file',file);
-                    axios.post('/api/change_item_image',formData).then((res) => {
+                    await axios.post('/api/change_item_image',formData).then((res) => {
                         this.is_click_item_image = false;
                         this.clicked_id = 0;
                         this.load(this.current_page);
@@ -305,7 +314,7 @@
                 }
             },
             async csv_download() {
-                axios.get('/api/all_item_list').then((res) => {
+                await axios.get('/api/all_item_list').then((res) => {
                     var csv = '\ufeff' + 'ID,商品名,値段,数量,カテゴリ名\n';
                     res.data.forEach(element => {
                         var line = element['id']+','+element['item_name']+','+element['price']+','+element['num']+','+element['category_name']+"\n";
@@ -338,7 +347,7 @@
             },
             async remove_item(id) {
                 if (confirm("削除しますか？")) {
-                    axios.post('/api/remove_item',{id: id}).then((res) => {
+                    await axios.post('/api/remove_item',{id: id}).then((res) => {
                         this.load(this.current_page);
                     });
                 }
