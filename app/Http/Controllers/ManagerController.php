@@ -29,7 +29,7 @@ class ManagerController extends Controller
         $word = $request->query('word');
         $items = Items::join('category','items.category_id','=','category.id')->select('items.id as id','items.name as item_name','price','num','category_id','category.name as category_name','image_path')->orderBy('category_id')->orderBy('id')->Paginate(10);
         if ($word != '') {
-            $items = Items::join('category','items.category_id','=','category.id')->where('items.name','like','%'.$word.'%')->select('items.id as id','items.name as item_name','price','num','category_id','category.name as category_name','image_path')->orderBy('category_id')->orderBy('id')->Paginate(10);
+            $items = Items::join('category','items.category_id','=','category.id')->orWhere('items.name','like','%'.$word.'%')->orWhere('category.name','like','%'.$word.'%')->select('items.id as id','items.name as item_name','price','num','category_id','category.name as category_name','image_path')->orderBy('category_id')->orderBy('id')->Paginate(10);
         }
         return $items;
     }
