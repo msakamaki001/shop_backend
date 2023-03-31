@@ -6050,6 +6050,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -6059,6 +6063,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       is_click_item_num: false,
       is_click_item_category: false,
       is_click_item_image: false,
+      search_word: '',
       item_name: '',
       item_price: 0,
       item_num: 0,
@@ -6166,11 +6171,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+        var url;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                axios.get('/api/item_list?page=' + page).then(function (res) {
+                url = '/api/item_list?page=' + page;
+
+                if (_this.search_word != '') {
+                  url = url + '&word=' + _this.search_word;
+                }
+
+                _context.next = 4;
+                return axios.get(url).then(function (res) {
                   _this.items = res.data.data;
                   _this.current_page = res.data.current_page;
                   _this.last_page = res.data.last_page;
@@ -6179,7 +6192,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this.to = res.data.to;
                 });
 
-              case 1:
+              case 4:
               case "end":
                 return _context.stop();
             }
@@ -6195,11 +6208,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                axios.get('/api/category_list').then(function (res) {
+                _context2.next = 2;
+                return axios.get('/api/category_list').then(function (res) {
                   _this2.category_list = res.data;
                 });
 
-              case 1:
+              case 2:
               case "end":
                 return _context2.stop();
             }
@@ -6215,9 +6229,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                if (page >= 1 && page <= _this3.last_page) _this3.load(page);
+                if (!(page >= 1 && page <= _this3.last_page)) {
+                  _context3.next = 3;
+                  break;
+                }
 
-              case 1:
+                _context3.next = 3;
+                return _this3.load(page);
+
+              case 3:
               case "end":
                 return _context3.stop();
             }
@@ -6241,7 +6261,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context4.abrupt("return");
 
               case 2:
-                axios.post('/api/change_item_name', {
+                _context4.next = 4;
+                return axios.post('/api/change_item_name', {
                   id: id,
                   item_name: _this4.item_name
                 }).then(function (res) {
@@ -6251,7 +6272,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this4.load(_this4.current_page);
                 });
 
-              case 3:
+              case 4:
               case "end":
                 return _context4.stop();
             }
@@ -6275,7 +6296,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context5.abrupt("return");
 
               case 2:
-                axios.post('/api/change_item_price', {
+                _context5.next = 4;
+                return axios.post('/api/change_item_price', {
                   id: id,
                   item_price: _this5.item_price
                 }).then(function (res) {
@@ -6285,7 +6307,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this5.load(_this5.current_page);
                 });
 
-              case 3:
+              case 4:
               case "end":
                 return _context5.stop();
             }
@@ -6309,7 +6331,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _context6.abrupt("return");
 
               case 2:
-                axios.post('/api/change_item_num', {
+                _context6.next = 4;
+                return axios.post('/api/change_item_num', {
                   id: id,
                   item_num: _this6.item_num
                 }).then(function (res) {
@@ -6319,7 +6342,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this6.load(_this6.current_page);
                 });
 
-              case 3:
+              case 4:
               case "end":
                 return _context6.stop();
             }
@@ -6335,7 +6358,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context7.prev = _context7.next) {
               case 0:
-                axios.post('/api/change_item_category', {
+                _context7.next = 2;
+                return axios.post('/api/change_item_category', {
                   id: id,
                   item_category: _this7.item_category
                 }).then(function (res) {
@@ -6345,7 +6369,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this7.load(_this7.current_page);
                 });
 
-              case 1:
+              case 2:
               case "end":
                 return _context7.stop();
             }
@@ -6365,19 +6389,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 files = event.target.files || event.dataTransfer.files;
                 file = files[0];
 
-                if (confirm("変更しますか？") && _this8.checkFile(file)) {
-                  formData = new FormData();
-                  formData.append('id', id);
-                  formData.append('file', file);
-                  axios.post('/api/change_item_image', formData).then(function (res) {
-                    _this8.is_click_item_image = false;
-                    _this8.clicked_id = 0;
-
-                    _this8.load(_this8.current_page);
-                  });
+                if (!(confirm("変更しますか？") && _this8.checkFile(file))) {
+                  _context8.next = 8;
+                  break;
                 }
 
-              case 3:
+                formData = new FormData();
+                formData.append('id', id);
+                formData.append('file', file);
+                _context8.next = 8;
+                return axios.post('/api/change_item_image', formData).then(function (res) {
+                  _this8.is_click_item_image = false;
+                  _this8.clicked_id = 0;
+
+                  _this8.load(_this8.current_page);
+                });
+
+              case 8:
               case "end":
                 return _context8.stop();
             }
@@ -6391,7 +6419,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context9.prev = _context9.next) {
               case 0:
-                axios.get('/api/all_item_list').then(function (res) {
+                _context9.next = 2;
+                return axios.get('/api/all_item_list').then(function (res) {
                   var csv = "\uFEFF" + 'ID,商品名,値段,数量,カテゴリ名\n';
                   res.data.forEach(function (element) {
                     var line = element['id'] + ',' + element['item_name'] + ',' + element['price'] + ',' + element['num'] + ',' + element['category_name'] + "\n";
@@ -6407,7 +6436,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   link.click();
                 });
 
-              case 1:
+              case 2:
               case "end":
                 return _context9.stop();
             }
@@ -6444,15 +6473,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context10.prev = _context10.next) {
               case 0:
-                if (confirm("削除しますか？")) {
-                  axios.post('/api/remove_item', {
-                    id: id
-                  }).then(function (res) {
-                    _this9.load(_this9.current_page);
-                  });
+                if (!confirm("削除しますか？")) {
+                  _context10.next = 3;
+                  break;
                 }
 
-              case 1:
+                _context10.next = 3;
+                return axios.post('/api/remove_item', {
+                  id: id
+                }).then(function (res) {
+                  _this9.load(_this9.current_page);
+                });
+
+              case 3:
               case "end":
                 return _context10.stop();
             }
@@ -31729,6 +31762,41 @@ var render = function () {
                         ),
                       ]
                     ),
+                    _vm._v(" "),
+                    _c("div", { staticStyle: { "margin-left": "10px" } }, [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.search_word,
+                            expression: "search_word",
+                          },
+                        ],
+                        attrs: { placeholder: "商品名、カテゴリ名" },
+                        domProps: { value: _vm.search_word },
+                        on: {
+                          input: function ($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.search_word = $event.target.value
+                          },
+                        },
+                      }),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          on: {
+                            click: function ($event) {
+                              return _vm.load(1)
+                            },
+                          },
+                        },
+                        [_vm._v("検索")]
+                      ),
+                    ]),
                   ]),
                 ]
               ),
