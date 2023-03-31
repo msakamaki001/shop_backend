@@ -31773,7 +31773,7 @@ var render = function () {
                             expression: "search_word",
                           },
                         ],
-                        attrs: { placeholder: "商品名、カテゴリ名" },
+                        attrs: { placeholder: "商品名" },
                         domProps: { value: _vm.search_word },
                         on: {
                           input: function ($event) {
