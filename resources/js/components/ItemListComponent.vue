@@ -24,7 +24,7 @@
                             CSVダウンロード
                         </a>
                         <div style="margin-left: 10px;">
-                            <input placeholder="商品名、カテゴリ名" v-model="search_word">
+                            <input placeholder="商品名" v-model="search_word">
                             <button @click="$event => load(1)">検索</button>
                         </div>
                     </div>
